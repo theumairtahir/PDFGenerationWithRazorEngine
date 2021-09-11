@@ -1,0 +1,73 @@
+﻿@model PDFGenerator.Models.InvoiceModel
+@{
+    Layout = null;
+    var slNo = 0;
+}
+
+<div style="border: 1px solid; margin-top: 15%;">
+    <h2 style="text-align: center;">Sale Invoice فاتورة البيع</h2>
+    <hr />
+    <div style="margin-left:2%;">
+        <h3> VOUCHER No / فاتورة : <span>@Model.VoucherNumber</span></h3>
+        <h3> DATE TIME / التاريخ الوقت : <span>@Model.InvoiceTime.ToString("yy-MM-dd H:mm:ss")</span></h3>
+        <h3> SALEMAN / بائع : <span>@Model.SalesMan</span></h3>
+        <h3> CUSTOMER NO / رقم العميل : <span>@Model.CustomerNumber</span></h3>
+        <h3> CONTACT NO / رقم الاتصال : <span>@Model.ContactNumber</span></h3>
+        <h3> VAT / ضريبة القيمة المضافة : <span>@Model.VAT</span></h3>
+        <h3> ADDRESS / عنوان : <span>@Model.Address</span></h3>
+    </div>
+    <hr />
+    <table style="border: 1px solid black ; border-collapse: collapse; text-align: center; margin-bottom: 1%; margin-left: 3%; padding: 1% 1% 1% 1%;">
+        <thead style="border: 1px solid black ;">
+            <tr>
+                <th width="100" style="border: 1px solid black ;">SL NO </th>
+                <th width="850" style="border: 1px solid black ;">ITEM NAME اسم العنصر</th>
+                <th width="100" style="border: 1px solid black ;">QUANTITY كمية </th>
+                <th width="70" style="border: 1px solid black ;">RATE معدل </th>
+                <th width="100" style="border: 1px solid black ;">TOTAL المجموع</th>
+                <th width="100" style="border: 1px solid black ;">VAT AMT ضريبة</th>
+                <th width="100" style="border: 1px solid black ;">NET TOTAL المجموع</th>
+            </tr>
+        </thead>
+        <tbody style="border: 1px solid black ;">
+            @foreach (var item in Model.Details)
+            {
+                <tr>
+                    <td width="100" style="border: 1px solid black ;">@(++slNo)</td>
+                    <td width="850" style="border: 1px solid black ;">@item.ItemName</td>
+                    <td width="100" style="border: 1px solid black ;">@(decimal.Round(item.Quantity,1).ToString("0.0"))</td>
+                    <td width="70" style="border: 1px solid black ;">@(decimal.Round(item.Rate,2).ToString("0.00"))</td>
+                    <td width="100" style="border: 1px solid black ;">@(decimal.Round(item.Total,2).ToString("0.00"))</td>
+                    <td width="100" style="border: 1px solid black ;">@(decimal.Round(item.VATAmount,2).ToString("0.00"))</td>
+                    <td width="100" style="border: 1px solid black ;">@(decimal.Round(item.NetTotal,2).ToString("0.00"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div style="border: 1px solid;">
+    <div style="text-align: right; margin-right: 1%;">
+        <h3> TOTAL BEFORE TAX / المجموع دون الضريبة SAR : <span>@(decimal.Round(Model.TotalBeforeTax, 2).ToString("0.00"))</span></h3>
+        <h3> VAT AMT (15 %) / ضريبة SAR: <span>@(decimal.Round(Model.VATAmount, 2).ToString("0.00"))</span></h3>
+        <h3> DISCOUNT / خصم SAR : <span>@(decimal.Round(Model.Discount, 2).ToString("0.00"))</span></h3>
+    </div>
+</div>
+<div style="border: 1px solid;">
+    <div>
+        <h3 style="text-align: right; margin-right: 1%;"> NET TOTAL المجموع الصافي / SAR : <span>@(decimal.Round(Model.NetTotal, 2).ToString("0.00"))</span></h3>
+        <h3 style="margin-left: 20px;"> Amount in Words: <span>@Model.AmountInWords</span></h3>
+
+    </div>
+</div>
+<div style="border: 1px solid;">
+    <div style="text-align: right; margin-right: 1%;">
+        <h3> OLD BALANCE / التوازن القديم SAR : <span>@(decimal.Round(Model.OldBalance, 2).ToString("0.00"))</span></h3>
+        <h3> CASH RECEIVED / المبلغ المستلم SAR : <span>@(decimal.Round(Model.CashRecevied, 2).ToString("0.00"))</span></h3>
+        <h3> BALANCE / الرصيد SAR : <span>@(decimal.Round(Model.Balance, 2).ToString("0.00"))</span></h3>
+        <h3 style="margin-left: 20px;">
+            <div style="/*display: flex;justify-content: space-between;*/">
+                <div style="position: absolute;"><span>Sale Man : <span>@Model.SalesMan</span> </span></div> <div>Received: <br /><span>..................</span></div>
+            </div>
+        </h3>
+    </div>
+</div>
