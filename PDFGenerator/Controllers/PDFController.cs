@@ -85,7 +85,7 @@ namespace PDFGenerator.Controllers
         {
             Rotativa.Core.DriverOptions options = new Rotativa.Core.DriverOptions
             {
-                PageMargins = new Rotativa.Core.Options.Margins(0, 0, 0, 0),
+                PageMargins = new Rotativa.Core.Options.Margins(5, 0, 0, 0),
                 PageSize = Rotativa.Core.Options.Size.A4,
                 PageOrientation = Rotativa.Core.Options.Orientation.Portrait
             };
